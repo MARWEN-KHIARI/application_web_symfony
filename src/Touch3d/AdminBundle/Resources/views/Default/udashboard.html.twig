@@ -1,0 +1,101 @@
+{% if is_granted('ROLE_USER') %}
+    {% extends "Touch3dAdminBundle::layout.html.twig" %}
+
+    {% block title %}User{% endblock %}
+    {% block Stylesheet %}
+        <style>
+            .badge {
+                float: right;
+            }
+        </style>
+    {% endblock Stylesheet %}
+    {% block navmenu %}
+        <li class="divider-vertical"></li>
+
+        <li class="active" id="li_dashboard"><a href="{{ path('udashboard') }}"> <i class="icon-cog"></i> {% trans %}Dashboard{% endtrans %}</a></li>
+
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-wrench"></i>
+                {% trans %}Configuration{% endtrans %} <b class="caret"></b> </a>
+            <ul class="dropdown-menu">
+                <ul style="list-style: none">Language
+                    <li><a href="#" onclick="changeLanguage('en');return false;"> <img src="{{ asset('bundles/touch3dadmin/img/lang_en.png') }}"  width="20px"/> &middot; English</a></li>
+                    <li><a href="#" onclick="changeLanguage('fr');return false;"> <img src="{{ asset('bundles/touch3dadmin/img/lang_fr.png') }}"  width="20px"/> &middot; French</a></li>
+                </ul>
+
+            </ul>
+        </li>
+        <li id="li_profile"><a href="{{ path("userProfile") }}"> <i class="icon-user"></i> Profile</a></li>
+        <li id="li_facturer"><a href="{{ path("userFacturer") }}"> <i class="icon-shopping-cart"></i> Commande</a></li>
+        <li id="li_facture"><a href="{{ path("userFacture") }}"> <i class="icon-barcode"></i> Facture</a></li>
+
+{% endblock navmenu %}
+
+    {% block Dashboard %}
+
+        <div class="container container-100">
+            <ul class="breadcrumb">
+                {% block url_dashboard %}
+                    <li class="active">Dashboard <span class="divider">/</span></li>
+                {% endblock url_dashboard %}
+            </ul>
+            <div class="row-fluid">
+                <ul class="thumbnails">
+                    <li class="span4">
+
+                        {% block statistics_dashboard %}
+                        {% endblock statistics_dashboard %}
+
+
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="page-header">
+                {% block title_table_dashboard %}
+                {% endblock title_table_dashboard %}
+            </div>
+
+            <div>
+
+                {% block search_dashboard %}
+                {% endblock search_dashboard %}
+            </div>
+
+            <br>
+            <br>
+
+
+            {% block table_dashboard %}
+                <h1>{% trans %}Welcome To The Dashboard !{% endtrans %}</h1>
+                <h3>Vous pouvez demander un service ici!</h3>
+            {% endblock table_dashboard %}
+
+
+            <hr/>
+            <div id="messageInfo"></div>
+
+            {% block pagination %}
+            {% endblock pagination %}
+
+            <div class="clear-both"><br>
+                <br>
+            </div>
+        </div>
+
+    {% endblock Dashboard %}
+
+    {% block Javascript %}
+
+
+        <script>
+            _activeuDashboard();
+        </script>
+    {% endblock Javascript %}
+    {% block JavascriptExtends %}
+    {% endblock JavascriptExtends %}
+
+
+    {% endif %}
+
+

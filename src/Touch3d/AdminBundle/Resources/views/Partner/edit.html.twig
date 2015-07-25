@@ -1,0 +1,158 @@
+{% extends 'Touch3dAdminBundle:Partner:partner.html.twig' %}
+{% block title %}Dashboard&middot;Partner&middot;Edit{% endblock %}
+
+
+{% block StylesheetExtends %}
+    <link href="{{ asset('bundles/touch3dadmin/css/gallery.css') }}" rel="stylesheet">
+{% endblock StylesheetExtends %}
+
+{% block url_dashboard %}
+    <li><a href="{{ path("dashboard") }}">Dashboard</a> <span class="divider">/</span></li>
+    <li><a href="{{ path("partner") }}">Partner</a> <span class="divider">/</span></li>
+    <li class="active">Edit</li>
+{% endblock url_dashboard %}
+
+
+{% block statistics_dashboard %}
+{% endblock statistics_dashboard %}
+
+{% block title_table_dashboard %}
+    <h3>
+    <div id="loading"></div>
+    {% trans with {'%lb%': transLib } %}Edit %lb%{% endtrans %}
+    {% if Produit|length > 0 %}
+        <small><p>{% trans with {'%lb%': transLib } %}You can edit your %lb%.{% endtrans %}</p></small>
+        </h3>
+    {% else %}
+        <small><p>{% trans with {'%lb%': transLib } %}You cannot update your %lb%.{% endtrans %}</p></small>
+        </h3>
+    {% endif %}
+{% endblock title_table_dashboard %}
+
+
+{% block search_dashboard %}
+{% endblock search_dashboard %}
+
+{% block pagination %}
+{% endblock pagination %}
+
+    {% block table_dashboard %}
+        {% if Produit|length > 0 %}
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <table class="form">
+                <tbody>
+                <tr>
+                    <td> ID:</td>
+                    <td>
+                        <input type="text" readonly="readonly" value="{{ Produit.id|raw }}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.nom) }}</td>
+                    <td>{{ form_widget(form.nom) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.logo) }}</td>
+                    <td>{{ form_widget(form.logo) }}
+                        <br/>
+<span><button onclick="selectImages(); return false;" id="pic" name="pic" class="btn"><i class="icon-picture"></i>
+        select picture
+    </button></span>
+                        <br/><br/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.lien) }}</td>
+                    <td>{{ form_widget(form.lien) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.matricule) }}</td>
+                    <td>{{ form_widget(form.matricule) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.responsable) }}</td>
+                    <td>{{ form_widget(form.responsable) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.adresse) }}</td>
+                    <td>{{ form_widget(form.adresse) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.ville) }}</td>
+                    <td>{{ form_widget(form.ville) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.poste) }}</td>
+                    <td>{{ form_widget(form.poste) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.pays) }}</td>
+                    <td>{{ form_widget(form.pays) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.tel) }}</td>
+                    <td>{{ form_widget(form.tel) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.fax) }}</td>
+                    <td>{{ form_widget(form.fax) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.email) }}</td>
+                    <td>{{ form_widget(form.email) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.status) }}</td>
+                    <td>{{ form_widget(form.status) }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="element">
+                        {{ form_widget(form.envoyer, {'attr': {'onclick': 'saveProduct(' ~ Produit.id ~ ');' }}) }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            {{ form_end(form) }}
+
+
+
+        {% endif %}
+
+
+    {% endblock table_dashboard %}
+
+
+
+
+{% block JavascriptExtends %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            statistique()
+        });
+
+        var _selectImages = "{{ path('_selectImages') }}";
+        var IdInputTypeUrlPicture='touch3d_adminbundle_partenaire_logo';
+        $("#touch3d_adminbundle_partenaire_status option:contains('{{ Produit.status|trans }}')").attr("selected", true);
+        $("#touch3d_adminbundle_partenaire_poste").attr("type", 'number');
+
+    </script>
+
+    <script src="{{ asset('bundles/touch3dadmin/js/gallery_select.js') }}"></script>
+
+
+{% endblock JavascriptExtends %}

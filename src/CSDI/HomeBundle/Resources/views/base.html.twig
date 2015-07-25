@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Touch3D">
+    <link rel="shortcut icon" sizes="16x16" href="{{ asset('bundles/csdihome/images/icon.ico') }}">
+
+    <title>
+        CSDI {% block title %}{% endblock %}
+    </title>
+    {% block stylesheets %}
+
+    {% endblock %}
+
+        {% stylesheets filter='yui_css' output='css/compiled/style.css'
+        '@CSDIHomeBundle/Resources/public/css/style.css'
+        %}
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
+        {% endstylesheets %}
+
+    <!--less,cssrewrite-->
+    <!--yui_css-->
+
+
+
+</head>
+<body onresize="testPlatform();">
+
+{% block bodyOnly %}
+{% endblock bodyOnly %}
+<div id="social">
+    <a href="#" onclick="ShowMail(); scrolltop(); return false;"><img
+                src="{{ asset('bundles/csdihome/images/rss.png') }}"/></a>
+    <a href="http://www.facebook.com"><img src="{{ asset('bundles/csdihome/images/facebook.png') }}"/></a>
+    <a href="http://www.google.com"><img src="{{ asset('bundles/csdihome/images/gplus.png') }}"/></a>
+    <a href="#" id="menuFloat" onclick="showMenuFloat(); return false;"><img src="{{ asset('bundles/csdihome/images/m.png') }}"/></a>
+</div>
+<div id="container">
+    <a id="toTop">↑</a>
+    <header>
+
+        <a href="#"><img class="logo" src="{{ asset('bundles/csdihome/images/logo.png') }}"/></a>
+
+        <nav>
+
+            <ul>
+                <li id="{{ path('index') }}" onclick="javascript:window.location.replace(this.id);" name="Accueil">Accueil</li>
+                <li id="{{ path('CATALOGUE') }}" onclick="javascript:window.location.replace(this.id);" name="Catalogue">Catalogue</li>
+                <li id="{{ path('EVENEMENT') }}" onclick="javascript:window.location.replace(this.id);" name="Evenement">Evénements</li>
+                <li id="{{ path('REFERENCE') }}" onclick="javascript:window.location.replace(this.id);" name="Reference">Références</li>
+                <li id="{{ path('CONTACT') }}" onclick="javascript:window.location.replace(this.id);" name="Contact">Contact</li>
+
+
+                    <li id="subscribe" style="display: none">
+                        <form>
+                            <input type="email" id="email" placeholder="nm@nm.nm" autofocus="autofocus" required="required"
+                                   onkeypress="emailEnter();"/>
+                            <a onclick="ShowMail(); return false;">Subscribe</a>
+                        </form>
+                    </li>
+
+            </ul>
+        </nav>
+
+        <h3 class="slogan">CSDI Company take you there </h3><br/>
+
+        <div class="clear"></div>
+
+        {% block headerDown %}{% endblock %}
+    </header>
+
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        <div id="footer-contact" style="font-size: 14px"> (+216) 71 201 000.<img src="{{ asset('bundles/csdihome/images/phone.png') }}" style="width: 15px;height: 15px;"/><br/><strong style="font-size: 12px">Marwen Ben Salah</strong></div>
+        <div id="footer-copyright">&copy; 2014. CSDI. All rights reserved.</div>
+    </footer>
+</div>
+<style>
+    Inherited from html
+    html {
+        font-size: 100%;
+    }
+    Inherited from body
+    body {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 14px;
+        line-height: 10px;
+        color: #333;
+    }
+</style>
+
+
+
+{% javascripts filter='yui_js'
+'@CSDIHomeBundle/Resources/public/js/jquery.min.js'
+'@CSDIHomeBundle/Resources/public/js/script.js'
+'@CSDIHomeBundle/Resources/public/js/email.js'
+'@CSDIHomeBundle/Resources/public/js/slideshow.js'
+'@CSDIHomeBundle/Resources/public/js/slideArticle.js'
+'@CSDIHomeBundle/Resources/public/js/slideArticle2.js'
+'@CSDIHomeBundle/Resources/public/js/tabs.js'
+output='js/compiled/main.js'
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+
+
+<script>
+    function changePage(nm){
+    var pageButton = document.getElementsByName(nm);
+    $(pageButton).attr("id","pgactive");
+    $(pageButton).attr("onclick","");
+    }
+    var _SETNlttr="{{ path("SETNEWST") }}";
+</script>
+{% block javascripts %}
+{% endblock %}
+
+
+</body>
+</html>

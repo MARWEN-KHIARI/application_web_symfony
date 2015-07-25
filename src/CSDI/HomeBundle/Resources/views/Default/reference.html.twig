@@ -1,0 +1,85 @@
+{% extends "CSDIHomeBundle::base.html.twig" %}
+{% block title %} - Référence{% endblock %}
+
+
+{% block content %}
+<style>
+    .abtn{
+        display: block;
+        float: none;
+        padding: 10px 15px 10px;
+        color: #777;
+        text-decoration: none;
+        text-shadow: 0 1px 0 #fff;
+         background-color: #ffd;
+        -webkit-border-radius: 0 14px 14px 0;
+        -moz-border-radius: 0 14px 14px 0;
+        border-radius: 0 14px 14px 0;
+
+    }
+</style>
+    <div id="content">
+
+
+        <article id="article_4">
+
+
+            <h2>Presentation</h2>
+            <img src="{{ asset('bundles/csdihome/images/') }}entreprise.jpg" class="imgCadre" width="100%"/>
+
+            <p>CSDI est une société d'Informatique basée à Manouba en Tunisie. Pour le grand public, CSDI crée plusieurs produits destiné pour les enfants et les adultes Notre catalogue des produits contient:
+            </p>
+
+            <p>
+                Flagrans eius amore, non impetraret, ut ferebatur, perpal
+                pseudothyrum introducta, oblato pretioso reginae monili idad
+                adsecuta est, ut ad Honoratum tum comitem orientis formula
+                missa letali omnino scelere nullo contactus idem Clematius nec
+                hiscere nec loqui permissus occideretur.
+            </p>
+<p>
+            Si vous etes un commercial et vous voulez s'inscrire et accéder à nos service <a href="{{ path('fos_user_registration_register') }}" target="_blank" class="abtn">cliquer ici</a>.
+            <br/>Pour se connecter à votre espace <a href="{{ path('fos_user_security_login') }}" target="_blank" class="abtn">cliquer ici</a>
+</p>
+            <div class="clear"></div>
+            <h2>Services</h2>
+            <div class="clear"></div>
+            <br/>
+            <br/>
+            <div id="tabs">
+                <ul>
+                        <li><a class="tabx-menu" href='#' onclick="affTabs(this); return false;">service1</a></li>
+                        <li><a class="tabx-menu" href='#' onclick="affTabs(this); return false;">service2</a></li>
+                        <li><a class="tabx-menu" href='#' onclick="affTabs(this); return false;">service3</a></li>
+                        <li><a class="tabx-menu" href='#' onclick="affTabs(this); return false;">service4</a></li>
+                </ul>
+                <div id='tab-container'>
+                    <div class="tabx">
+                        <p>Pour les commerciaux vous pouvez nous contacter si vous avez des questions</p>
+                        <a href="{{ path('CONTACT') }}" class="abtn" >Contact</a>
+                    </div>
+                    <div class="tabx">
+                        <p>Les entreprise  qui en besoin de marketing vous voulez nous contacter questions</p>
+                        <a href="{{ path('CONTACT') }}" class="abtn" >Contact</a>
+                    </div>
+                    <div class="tabx">
+                        <p>Aenean nec ultrices neque. Ut bibendum ligula neque, vitae dictum sapien semper vitae. Pellentesque dignissim risus sem, at auctor quam blandit nec.</p>
+                    </div>
+                    <div class="tabx">
+                        <p>Donec sed ipsum eu libero ultrices rutrum. Cras egestas adipiscing sapien eget lacinia. Pellentesque velit nisl, eleifend at facilisis ac, rutrum eget lectus.</p>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+
+
+    <script>changePage("Reference");</script>
+{% endblock %}

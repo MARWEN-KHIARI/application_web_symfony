@@ -1,0 +1,62 @@
+<pdf Creator="CSDI" Author="CSDI" Title="devise" Subject="facture">
+
+    <dynamic-page encoding="UTF-8">
+
+
+        <stylesheet>
+            <attribute class="article" name="padding" value=" 5% 10%"></attribute>
+
+        </stylesheet>
+
+        <placeholders>
+
+            <footer>
+                <div height="20px" alpha="0.8">
+                    <page-number/>
+                </div>
+            </footer>
+
+            <watermark>
+                <!-- rotate can have absolute values (45deg - in degrees, 0.123 - in radians) or relative values ("diagonally" and "-diagonally" - angle between diagonal and base side of the page) -->
+                <div rotate="diagonally" alpha="0.1">
+                    <img src="./bundles/csdihome/images/logo.png"/>
+                </div>
+            </watermark>
+        </placeholders>
+
+
+
+        <page page-size="a4">
+            <img class="logo" src="./bundles/csdihome/images/logo.png" padding="0 0 0 450px"/>
+            <hr/>
+            <h1 font-size="116px">Produit</h1>
+            <h1 font-size="56px">Catalogue</h1>
+
+            <h1 padding="600px 0 0 0" alpha="0.8" font-size="16px">Nombre Des Articles: {{ Produits|length }}</h1>
+
+        </page>
+
+        <br/>
+        {% for Produit in Produits %}
+
+            <div class="article">
+                <h1>{{ Produit.nom|upper }}</h1>
+
+                {% if Produit.img != '' %}
+
+                    <img src="./{{ Produit.img }}" width="150px"
+                         class="imgCadre"/>
+
+                {% endif %}
+                <br/>
+
+                <h3>Presentation:</h3>
+
+                <p>{{ Produit.resumer|raw }}</p>
+                <hr/>
+            </div>
+<div  height="10px"></div>
+        {% endfor %}
+
+    </dynamic-page>
+</pdf>

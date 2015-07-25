@@ -1,0 +1,194 @@
+{% extends 'Touch3dAdminBundle:Article:article.html.twig' %}
+{% block title %}Dashboard&middot;Article&middot;Edit{% endblock %}
+
+
+{% block StylesheetExtends %}
+    <link href="{{ asset('bundles/touch3dadmin/css/gallery.css') }}" rel="stylesheet">
+    <style>
+        #touch3d_adminbundle_article_date select{
+            width: inherit;
+        }
+    </style>
+
+{% endblock StylesheetExtends %}
+
+{% block url_dashboard %}
+    <li><a href="{{ path("dashboard") }}">Dashboard</a> <span class="divider">/</span></li>
+    <li><a href="{{ path("article") }}">Article</a> <span class="divider">/</span></li>
+    <li class="active">Edit</li>
+{% endblock url_dashboard %}
+
+
+{% block statistics_dashboard %}
+{% endblock statistics_dashboard %}
+
+{% block title_table_dashboard %}
+    <h3>
+    <div id="loading"></div>
+    {% trans with {'%lb%': transLib } %}Edit %lb%{% endtrans %}
+    {% if Article|length > 0 %}
+        <small><p>{% trans with {'%lb%': transLib } %}You can edit your %lb%.{% endtrans %}</p></small>
+        </h3>
+    {% else %}
+        <small><p>{% trans with {'%lb%': transLib } %}You cannot update your %lb%.{% endtrans %}</p></small>
+        </h3>
+    {% endif %}
+{% endblock title_table_dashboard %}
+
+
+{% block search_dashboard %}
+{% endblock search_dashboard %}
+
+{% block pagination %}
+{% endblock pagination %}
+
+    {% block table_dashboard %}
+        {% if Article|length > 0 %}
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <table class="form">
+                <tbody>
+                <tr>
+                    <td> ID:</td>
+                    <td>
+                        <input type="text" readonly="readonly" value="{{ Article.id|raw }}"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>{{ form_label(form.nom) }}</td>
+                    <td>
+
+                        {{ form_widget(form.nom) }}
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.date) }}</td>
+                    <td>
+
+                        {{ form_widget(form.date) }}
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.lieu) }}</td>
+                    <td>
+
+                        {{ form_widget(form.lieu) }}
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.img) }}</td>
+                    <td>
+                        {{ form_widget(form.img) }}
+                        <br/>
+<span><button onclick="selectImages(); return false;" id="pic" name="pic" class="btn"><i class="icon-picture"></i>
+        select picture
+    </button></span>
+                        <br/><br/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.resumer) }}</td>
+                    <td>
+                        {{ form_widget(form.resumer) }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.contenu) }}</td>
+                    <td>
+
+                        {{ form_widget(form.contenu) }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.status) }}</td>
+                    <td>
+
+                        {{ form_widget(form.status) }}
+
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="element">
+                        {{ form_widget(form.envoyer, {'attr': {'onclick': 'saveArticle(' ~ Article.id ~ ');' }}) }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            {{ form_end(form) }}
+
+
+
+        {% endif %}
+
+
+    {% endblock table_dashboard %}
+
+
+
+
+{% block JavascriptExtends %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            statistique()
+        });
+
+        $("#touch3d_adminbundle_article_status option:contains('{{ Article.status|trans }}')").attr("selected", true);
+        var _selectImages = "{{ path('_selectImages') }}";
+        var IdInputTypeUrlPicture='touch3d_adminbundle_article_img';
+    </script>
+
+    <script src="{{ asset('bundles/touch3dadmin/js/gallery_select.js') }}"></script>
+
+    <script src="{{ asset('bundles/touch3dadmin/tinymce/tinymce.min.js') }}"></script>
+    <script>
+        tinymce.init({
+            selector: "textarea#touch3d_adminbundle_article_contenu",
+            theme: "modern",
+            width: '80%',
+            height: 300,
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality  template paste textcolor"
+            ],
+
+            add_unload_trigger: false,
+            schema: "html5",
+            // inline: true,
+            relative_urls: false,
+            toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+            style_formats: [
+                {title: 'Bold text', inline: 'b'},
+                {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                {title: 'Example 1', inline: 'span', classes: 'example1'},
+                {title: 'Example 2', inline: 'span', classes: 'example2'},
+                {title: 'Table styles'},
+                {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+            ],
+            statusbar: false,
+
+            paste_data_images: true,
+
+            image_list: [
+                {% for img in images %}
+                {title: '{{ img.alt }}', value: '{{ asset(img.getWebPath) }}'},
+                {% endfor %}
+                {title: 'null', value: 'null'}
+            ]
+
+        });
+    </script>
+
+{% endblock JavascriptExtends %}

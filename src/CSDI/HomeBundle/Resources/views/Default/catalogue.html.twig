@@ -1,0 +1,169 @@
+{% extends "CSDIHomeBundle::base.html.twig" %}
+{% block title %} - Catalogue{% endblock %}
+
+
+{% block content %}
+    <div id="content" style="padding:0;">
+
+
+        <article id="article_11">
+            <h2>Catalogue<br/><a class="versPdf" href="{{ path('CatalogueBook') }}" target="_blank"> >version pdf</a></h2>
+
+            <ul class="prod" style="padding-left:0;">
+
+                <li onclick="changeTabPag();  return false;"><a href='#' class="tabx-menu" href='#'>&nbsp;&nbsp;&nbsp;&nbsp; >> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </a></li><br/>
+                {% for Produit in Produits %}
+                    <li id="li_{{ Produit.id }}" onclick="affTabs('#div_{{ Produit.id }}'); return false;"><a href='#' class="tabx-menu" href='#'><strong>{{ Produit.nom|upper }}</strong>
+                            {% if Produit.img != '' %}
+                                <img src="{{  Produit.img }}"/>
+                            {% endif %}
+                        </a></li>
+                {% endfor %}
+            </ul>
+
+
+        </article>
+
+
+        <article id="article_12">
+            <div>
+                {% if(user_ == 'n-') %}
+                <a class="versPdf"  href="{{ path('userFacturer') }}" target="_blank" style="float: right;opacity: 0.7;display: none;" id="facturer"><img width= 70px; src="{{ asset('bundles/csdihome/images/facture.png') }}"/><br/><b>Facturer</b></a><br/>
+                {% endif %}
+                {% for Produit in Produits %}
+                    <div id="div_{{ Produit.id }}" style="border: 1px dashed #F1EBE1; padding: 40px 40px 20px 20px;">
+                        <p style="color:#555; font-size: 24px; font-weight: 700;">{{ Produit.nom }}</p>
+
+                        {% if(user_ == 'n-') %}
+                        <span id="commercial" style="float: right; width: 200px; height: 200px;">
+                        <img style="width: 150px;cursor: pointer;" src="{{ asset('bundles/csdihome/images/commander.png') }}" onclick="commander({{ Produit.id }});return false;"/>
+                        <span id="commercial_qte_{{ Produit.id }}" ></span>
+
+                        </span>
+
+                        {% endif %}
+                        {% if Produit.img != '' %}
+                            <center><img src="{{  Produit.img }}" width="50%" /></center>
+                        {% endif %}
+                        {% if user_=='n-' %}
+                        <br/><br/>
+                        <h4 id="commercial_Prix">Prix: {{  Produit.prix }} dinar</h4>
+                        {% if Produit.qteStock > 0 %}
+                                <br/>
+                                Disponible
+                                {% else %}
+                                <br/>
+                                Non disponible
+                        {% endif %}
+                        {% endif %}                                                
+                        <br/>
+                        <hr/>
+                        <p>{{ Produit.contenu|raw }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </article>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+
+
+    <script>changePage("Catalogue");</script>
+<script>
+var compt=4;
+var l=0;
+    var tab1=new Array();
+    var tab2=new Array();
+
+    {% for Produit in Produits %}
+    tab1.push("#li_{{ Produit.id }}");
+    tab2.push("#div_{{ Produit.id }}");
+    {% endfor %}
+
+initTab();
+changeTabPag();
+
+function initTab(){
+    var i;
+    for(i=0;i<tab1.length;i++){
+        $(tab1[i]).hide();
+    }
+    for(i=0;i<tab2.length;i++){
+        $(tab2[i]).hide();
+    }
+    affTabs(tab2[0]);
+}
+
+function changeTabPag(){
+    if(l<tab1.length)l+=compt;
+    else {
+        l=compt;
+        initTab();
+    }
+    var j;
+    for(j=0;j<(l-compt);j++){
+        $(tab1[j]).hide();
+    }
+    for(j=(l-compt);j<l;j++){
+        $(tab1[j]).fadeIn(1000);
+    }
+    affTabs(tab2[l-compt]);
+    scrollToBottomx();
+}
+
+function scrollToBottomx() {
+    $("html, body").animate({
+        scrollTop: 500
+    }, "slow");
+}
+var oldIdc;
+function affTabs(idc){
+    $(oldIdc).fadeOut();
+    oldIdc=idc;
+    $(idc).fadeIn();
+
+}
+{% if(user_=='n-') %}
+
+function commander(id){
+    $("#commercial_qte_"+id).hide();
+        $.post('{{ path('commander') }}', {
+            id: id
+        },function (data) {
+            $("#commercial_qte_"+id).html(data);
+        }, 'html').always(function () {
+            //$('#cmd_'+id).fadeOut();
+            $('#img_ajouter_panier').attr("src","{{ asset('bundles/csdihome/images/ajouter_panier.png') }}");
+            $("#commercial_qte_"+id).slideDown();
+            $("#facturer").fadeIn(2000);
+        });
+        return false;
+}
+
+function commanderExec(id){
+    $("#commercial_qte_"+id).slideUp();
+    $.post('{{ path('commanderExec') }}', {
+        id: id,
+        qte: $("#qte_"+id).val()
+    },function (data) {
+        if(data=="good"){
+            $("#commercial_qte_"+id).html("<p style='float: right;font-size:16px; font-weight:lighter;color:#3FBC00'>Produit ajouter  à votre panier</p>");
+            $("#commercial_qte_"+id).slideDown(600).fadeOut(3000);
+        } else {
+            $("#commercial_qte_"+id).html("<p style='float: right;font-size:16px; font-weight:lighter;color:#FB3C00'>ERREUR: Produit n'est pas ajouter</p>");
+            $("#commercial_qte_"+id).slideDown(600).fadeOut(3000);
+        }
+    }, 'html');
+    return false;
+}
+
+{% endif %}
+
+</script>
+
+{% endblock %}

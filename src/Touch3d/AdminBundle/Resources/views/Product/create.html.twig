@@ -1,0 +1,210 @@
+{% extends 'Touch3dAdminBundle:Product:product.html.twig' %}
+{% block title %}Dashboard&middot;Product&middot;Create{% endblock %}
+
+{% block StylesheetExtends %}
+    <link href="{{ asset('bundles/touch3dadmin/css/gallery.css') }}" rel="stylesheet">
+{% endblock StylesheetExtends %}
+
+{% block url_dashboard %}
+    <li><a href="{{ path("dashboard") }}">Dashboard</a> <span class="divider">/</span></li>
+    <li><a href="{{ path("product") }}">Product</a> <span class="divider">/</span></li>
+    <li class="active">Create</li>
+{% endblock url_dashboard %}
+
+
+
+{% block statistics_dashboard %}
+{% endblock statistics_dashboard %}
+
+{% block title_table_dashboard %}
+    <h3>
+    <div id="loading"></div>
+        {% trans with {'%lb%': transLib } %}Create %lb%{% endtrans %}
+        <small><p>{% trans with {'%lb%': transLib } %}You can add a new %lb%.{% endtrans %}</p></small>
+    </h3>
+{% endblock title_table_dashboard %}
+
+
+{% block search_dashboard %}
+{% endblock search_dashboard %}
+
+{% block pagination %}
+{% endblock pagination %}
+
+    {% block table_dashboard %}
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <table class="form">
+                <tbody>
+                <tr>
+                    <td>{{ form_label(form.nom) }}</td>
+                    <td>
+
+                        {{ form_widget(form.nom) }}
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.prix) }}</td>
+                    <td>
+                        {{ form_widget(form.prix) }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.qteStock) }}</td>
+                    <td>
+                        {{ form_widget(form.qteStock) }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.img) }}</td>
+                    <td>
+                        {{ form_widget(form.img) }}
+                        <br/>
+<span><button onclick="selectImages(); return false;" id="pic" name="pic" class="btn"><i class="icon-picture"></i>
+        select picture
+    </button></span>
+                        <br/><br/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.resumer) }}</td>
+                    <td>
+                        {{ form_widget(form.resumer) }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.contenu) }}</td>
+                    <td>
+
+                        {{ form_widget(form.contenu) }}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>{{ form_label(form.categorie) }}
+                    </td>
+                    <td>
+
+
+                        {{ form_widget(form.categorie) }}
+                        <br/><button type="button" onclick="addCat();" class="btn btn-default btn-lg" ><i class="icon-plus-sign"></i></button>
+                        <button type="button" onclick="removeCat();" class="btn btn-default btn-lg" ><i class="icon-minus-sign"></i></button>
+                        <div id="catAddform"></div>
+                        <br/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.fournisseur) }}
+                    </td>
+                    <td>
+
+
+                        {{ form_widget(form.fournisseur) }}
+                        <br/><button type="button" onclick="addFournisseur();" class="btn btn-default btn-lg" ><i class="icon-plus-sign"></i></button>
+                        <button type="button" onclick="removeFournisseur();" class="btn btn-default btn-lg" ><i class="icon-minus-sign"></i></button>
+                        <div id="FournisseurAddform"></div>
+                        <br/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.status) }}</td>
+                    <td>
+
+                        {{ form_widget(form.status) }}
+
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="element">
+                        {{ form_widget(form.envoyer, {'attr': {'onclick': 'saveProduct();' }}) }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            {{ form_end(form) }}
+
+
+
+
+
+    {% endblock table_dashboard %}
+
+
+
+
+
+{% block JavascriptExtends %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            statistique()
+        });
+
+        var _selectImages = "{{ path('_selectImages') }}";
+        var IdInputTypeUrlPicture='touch3d_adminbundle_produit_img';
+    </script>
+
+    <script src="{{ asset('bundles/touch3dadmin/js/gallery_select.js') }}"></script>
+    <script src="{{ asset('bundles/touch3dadmin/tinymce/tinymce.min.js') }}"></script>
+    <script>
+        tinymce.init({
+            selector: "textarea#touch3d_adminbundle_produit_contenu",
+            theme: "modern",
+            width: '80%',
+            height: 300,
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality  template paste textcolor"
+            ],
+
+            add_unload_trigger: false,
+            schema: "html5",
+            // inline: true,
+            relative_urls: false,
+            toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+            style_formats: [
+                {title: 'Bold text', inline: 'b'},
+                {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                {title: 'Example 1', inline: 'span', classes: 'example1'},
+                {title: 'Example 2', inline: 'span', classes: 'example2'},
+                {title: 'Table styles'},
+                {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+            ],
+            statusbar: false,
+
+            paste_data_images: true,
+
+            image_list: [
+                {% for img in images %}
+                {title: '{{ img.alt }}', value: '{{ asset(img.getWebPath) }}'},
+                {% endfor %}
+                {title: 'null', value: 'null'}
+            ]
+
+        });
+
+        document.getElementById('touch3d_adminbundle_produit_prix').type = "number";
+        document.getElementById('touch3d_adminbundle_produit_qteStock').type = "number";
+
+        var urldeleteCat="{{ path("_deleteCat") }}";
+        var urlSaveCat="{{ path("_newCat") }}";
+
+        var urldeleteFournisseur="{{ path("_deleteFournisseur") }}";
+        var urlSaveFournisseur="{{ path("_newFournisseur") }}";
+
+    </script>
+    <script src="{{ asset('bundles/touch3dadmin/js/category.js') }}"></script>
+    <script src="{{ asset('bundles/touch3dadmin/js/fournisseur.js') }}"></script>
+
+{% endblock JavascriptExtends %}

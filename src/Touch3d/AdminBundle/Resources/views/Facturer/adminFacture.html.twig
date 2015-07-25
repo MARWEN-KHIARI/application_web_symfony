@@ -1,0 +1,147 @@
+{% if is_granted('ROLE_USER') %}
+    {% extends "Touch3dAdminBundle:Default:dashboard.html.twig" %}
+
+    {% block statistics_dashboard %}
+    {% endblock statistics_dashboard %}
+
+    {% block title_table_dashboard %}
+        <h3>
+            <div id="loading"></div>
+            <h2>Factures:</h2>
+            <small>
+                <h4>Information:</h4>
+
+                <p>Pour payer vos factures il suffit de l'imprimer et les envoyer dans un courrier avec un chèque ou de
+                    payer en pièce dans l'adresse suivante</p>
+
+                <p>112 residence el andalouss manouba</p>
+            </small>
+        </h3>
+    {% endblock title_table_dashboard %}
+
+    {% block search_dashboard %}
+
+        <form enctype="multipart/form-data" action method="post" class="form-inline pull-left input-append form-search">
+            <div class="input-append">
+        <span><input type="text" name="searchText" id="searchText" list="bib" value="" autocomplete="off"
+                     class="input-small" placeholder="Search..." style="width:250px;" maxlength="60"></span>
+                <datalist id="bib">
+
+                    {% for facture in factures %}
+                    <option value="{{ facture.id }}">code facture</option>
+                    {% endfor %}
+                    <option value="facture payée">status</option>
+                    <option value="facture non payée">status</option>
+
+                </datalist>
+        <span><button name="Search" id="Search" type="submit" class="btn" onclick="findFacture(); return false;"><i
+                        class="icon-search"></i>{% trans %}Search{% endtrans %}
+            </button></span>
+            </div>
+
+        </form>
+    {% endblock search_dashboard %}
+
+    {% block pagination %}
+    {% endblock pagination %}
+    {% block table_dashboard %}
+
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+            <tr>
+                <th colspan="2"><label>Factures:</label></th>
+                <th><label>Date de creation:</label></th>
+                <th><label>Date de paiement:</label></th>
+                <th><label>Status:</label></th>
+            </tr>
+            </thead>
+            <tbody id="tableFacture">
+            {% for facture in factures %}
+
+                <tr>
+                    <td>
+                        {{ facture.id }}</td>
+                    <td width="150">
+                        <a class="btn" href="{{ path('pdfFactures',{id:facture.id}) }}" target="_blank">
+                            <i rel="tooltip" onmouseover="$(this).tooltip('show');" data-original-title="View Details"
+                               class="icon-eye-open"></i> </a>
+
+                        <a class="btn"
+                           href="javascript:bootbox.confirm(&quot;vous êtes sûr?&quot;, function(result){if(result)deleteFacture('{{ facture.id }}');});">
+                            <i rel="tooltip" onmouseover="$(this).tooltip('show');" data-original-title="Delete Data"
+                               class="icon-trash"></i></a>
+                        {% if(facture.status=="facture non payée") %}
+                        <a class="btn"
+                           href="javascript:bootbox.confirm(&quot;votre facture est payé?&quot;, function(result){if(result)payerFacture('{{ facture.id }}');});">
+                            <i rel="tooltip" onmouseover="$(this).tooltip('show');" data-original-title="facture payé"
+                               class="icon-shopping-cart"></i></a>
+                        {% endif %}
+                    </td>
+
+                    <td>{{ facture.dateCreation|date('d-m-Y') }}</td>
+                    <td>{% if(facture.datePaiement!=null) %}
+                            {{ facture.datePaiement|date('d-m-Y') }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>{{ facture.status }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+    {% endblock table_dashboard %}
+
+    {% block Javascript %}
+
+        <script>
+
+            $('#li_facture').addClass("active");
+            $('#li_dashboard').removeClass();
+
+
+            function deleteFacture(id1) {
+                $("#loading").fadeIn();
+                $.post("{{ path('deleteFactures') }}", {
+                    id: id1
+                },function (data) {
+                    afficheMess(data);
+                    location.reload();//ReloadPage();
+                }, 'html').always(function () {
+                    $("#loading").fadeOut();
+                });
+                return false;
+            }
+            var reloadPage1=true;
+            function payerFacture(id1) {
+                $("#loading").fadeIn();
+                $.post("{{ path('payerFactures') }}", {
+                    id: id1
+                },function (data) {
+                    afficheMess(data);
+                }, 'html').always(function () {
+                    $("#loading").fadeOut();
+                    if(reloadPage1)location.reload();
+                });
+                return false;
+            }
+
+            function findFacture() {
+                $("#loading").fadeIn();
+                $.post("{{ path('_findFacture') }}", {
+                    req: $("#searchText").val()
+                },function (data) {
+                    $("#tableFacture").empty();
+                    $('#tableFacture').html(data).hide();
+                }, 'text').always(function () {
+                    $('#tableFacture').fadeIn("slow");
+                    $("#loading").fadeOut();
+                });
+                return false;
+            }
+        </script>
+
+    {% endblock Javascript %}
+{% endif %}

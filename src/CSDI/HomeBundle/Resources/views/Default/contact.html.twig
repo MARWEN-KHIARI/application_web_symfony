@@ -1,0 +1,102 @@
+{% extends "CSDIHomeBundle::base.html.twig" %}
+{% block title %} - Contact{% endblock %}
+
+{% block content %}
+    <div id="content" style="background:#F6F6F6">
+        <div class="clear"></div>
+
+
+
+        <div class="map">
+            <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                    src="http://maps.google.com/maps?f=q&amp;ie=UTF8&amp;ll=36.80650,10.07355&amp;spn=36.80650,10.07355&amp;t=m&amp;z=17&amp;output=embed"></iframe>
+        </div>
+
+
+        <div class="clear"></div>
+
+
+        <article id="article_4">
+
+            {% for label, flashes in app.session.flashbag.all %}
+                {% for flash in flashes %}
+                    <div class="alert alert-{{ label }}">
+                        {{ flash }}
+
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            <div class="form1">
+                <h3>Envoyer un email rapide</h3>
+
+                <form id="cform" action="{{ path('CONTACT') }}" method="post">
+                    <table>
+                        <tr>
+                            <td>{{ form_label(form.name) }}
+                                {{ form_errors(form.name) }}
+                            </td>
+                            <td>{{ form_widget(form.name) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(form.email) }}
+                                {{ form_errors(form.email) }}
+                            </td>
+                            <td>{{ form_widget(form.email) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(form.subject) }}
+                                {{ form_errors(form.subject) }}
+                            </td>
+                            <td>{{ form_widget(form.subject) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ form_label(form.message) }}
+                                {{ form_errors(form.message) }}
+                            </td>
+                            <td>{{ form_widget(form.message) }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ form_rest(form) }}</td>
+                            <td><span>
+              <input class="btsubmit" type="submit" name="btsend" value="envoyer"/>
+              </span></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
+
+            <article id="article_22">
+                <h3>Trouvez moi ici </h3>
+                <br/>
+<span style="margin:0 20px;"><a href="http://www.facebook.com"><img
+                src="{{ asset('bundles/csdihome/images/') }}facebook.png"/></a>
+<a href="http://www.google.com"><img src="{{ asset('bundles/csdihome/images/') }}gplus.png"/></a><span>
+<br/>
+<hr/>
+<br/>
+
+       <div class="contactInfo">
+           <h3>Contacte Info </h3>
+           <ul>
+               <li><b>Portable:</b> <br/>(216) 71 201 000.</li>
+               <li><b>Fax:</b> <br/>(216) 71 201 000.</li>
+               <li><b>Email:</b> <a href="mailto:contact@CSDI.com">contact@csdi.com</a></li>
+               <li><b>Web:</b> <a href="CSDI.com">csdi.com</a></li>
+           </ul>
+       </div>
+
+            </article>
+        </article>
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>changePage("Contact");</script>
+{% endblock %}

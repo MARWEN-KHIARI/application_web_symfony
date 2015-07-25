@@ -1,0 +1,138 @@
+{% if is_granted('ROLE_USER') %}
+    {% extends "Touch3dAdminBundle:Default:udashboard.html.twig" %}
+
+    {% block statistics_dashboard %}
+    {% endblock statistics_dashboard %}
+
+    {% block title_table_dashboard %}
+        <h3>
+            <div id="loading"></div>
+            {% trans with {'%lb%': transLib } %}Edit %lb%{% endtrans %}
+
+            <small><p>{% trans with {'%lb%': transLib } %}You can edit your %lb%.{% endtrans %}</p></small>
+        </h3>
+
+    {% endblock title_table_dashboard %}
+
+
+    {% block search_dashboard %}
+    {% endblock search_dashboard %}
+
+    {% block pagination %}
+    {% endblock pagination %}
+    {% block table_dashboard %}
+        <div class="page-header">
+            {{ form_start(form,{'attr': {'id': 'form1' }} ) }}
+            {{ form_errors(form) }}
+            <table class="form">
+                <tbody>
+                <tr>
+                    <td><label>pseudo: </label></td>
+                    <td><input type="text" readonly="readonly" value="{{ user }}"/></td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.first_name) }}</td>
+                    <td>{{ form_widget(form.first_name) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.last_name) }}</td>
+                    <td>{{ form_widget(form.last_name) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.phone) }}</td>
+                    <td>{{ form_widget(form.phone) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.fax) }}</td>
+                    <td>{{ form_widget(form.fax) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.skype) }}</td>
+                    <td>{{ form_widget(form.skype) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.address) }}</td>
+                    <td>{{ form_widget(form.address) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.city) }}</td>
+                    <td>{{ form_widget(form.city) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.postal_code) }}</td>
+                    <td>{{ form_widget(form.postal_code) }}</td>
+                </tr>
+
+                <tr>
+                    <td>{{ form_label(form.country) }}</td>
+                    <td>{{ form_widget(form.country) }}</td>
+                </tr>
+
+                <tr id="organization_checkbox">
+                    <td>{{ form_label(form.organization) }}</td>
+                    <td>{{ form_widget(form.organization) }}</td>
+                </tr>
+
+                <tr class="organization_menu">
+                    <td>{{ form_label(form.business_name) }}</td>
+                    <td>{{ form_widget(form.business_name) }}</td>
+                </tr>
+
+                <tr class="organization_menu">
+                    <td>{{ form_label(form.organization_name) }}</td>
+                    <td>{{ form_widget(form.organization_name) }}</td>
+                </tr>
+
+                <tr class="organization_menu">
+                    <td>{{ form_label(form.organization_abbreviation) }}</td>
+                    <td>{{ form_widget(form.organization_abbreviation) }}</td>
+                </tr>
+
+                <tr class="organization_menu">
+                    <td>{{ form_label(form.registration_number) }}</td>
+                    <td>{{ form_widget(form.registration_number) }}</td>
+                </tr>
+
+                <tr class="organization_menu">
+                    <td>{{ form_label(form.tax_identification_number) }}</td>
+                    <td>{{ form_widget(form.tax_identification_number) }}</td>
+                </tr>
+
+                <tr class="organization_menu">
+                    <td>{{ form_label(form.website) }}</td>
+                    <td>{{ form_widget(form.website) }}</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td class="element">
+                        {{ form_widget(form.save, {'attr': {'onclick': 'save();' }}) }}
+                        {{ form_widget(form.reset) }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            {{ form_end(form) }}
+            </form>
+        </div>
+    {% endblock table_dashboard %}
+
+    {% block Javascript %}
+
+        <script>
+            var urlSave = "{{ path("userProfileSave") }}";
+
+            $('#li_profile').addClass("active");
+            $('#li_dashboard').removeClass();
+        </script>
+        <script type="text/javascript" src="{{ asset('bundles/touch3dadmin/js/userProfile.js') }}"></script>
+    {% endblock Javascript %}
+{% endif %}

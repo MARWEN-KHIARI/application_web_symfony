@@ -1,0 +1,178 @@
+
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Admin&middot;{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="login">
+    <meta name="author" content="Khiari Marwen">
+    <link rel="shortcut icon" sizes="16x16" href="{{ asset('bundles/touch3dadmin/img/icon.ico') }}">
+    <!-- Le styles -->
+    <link href="{{ asset('bundles/touch3dadmin/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/touch3dadmin/css/bootstrap-responsive.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/touch3dadmin/css/docs.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/touch3dadmin/css/bootstrap-wysihtml5.min.css') }}" rel="stylesheet">
+
+
+    {% stylesheets filter='yui_css' output='css/compiled/styleAdmin.css'
+    '@Touch3dAdminBundle/Resources/public/css/dashboard.css'
+    %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    {% block Stylesheet %}
+    {% endblock Stylesheet %}
+
+    {% block StylesheetExtends %}
+    {% endblock StylesheetExtends %}
+<style>
+
+    .nav-collapse, .nav-collapse.collapse {
+        height: auto;
+    }
+    /*.form label {
+        text-transform: capitalize;
+    }*/
+
+
+</style>
+</head>
+
+<body data-spy="scroll" data-target=".bs-docs-sidebar">
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+
+            <div class="nav-collapse collapse navbar-responsive-collapse">
+                <ul class="nav">
+                    <li >  <a rel="nofollow" href="{{ path("index") }}"><img  style="margin-top:-10px; margin-bottom:-5px;"  src="{{ asset('bundles/csdihome/images/logo_text.png') }}" alt="logo" width="80px"></a></li>
+                    {% block navmenu %}
+                    <li class="divider-vertical"></li>
+                    <li class="active" id="li_dashboard"><a href="{{ path('dashboard') }}"> <i class="icon-cog"></i> {% trans %}Dashboard{% endtrans %}</a></li>
+
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-wrench"></i>
+                            {% trans %}Configuration{% endtrans %} <b class="caret"></b> </a>
+                        <ul class="dropdown-menu">
+                            <ul style="list-style: none">Language
+                                <li><a href="#" onclick="changeLanguage('en');return false;"> <img src="{{ asset('bundles/touch3dadmin/img/lang_en.png') }}" width="20px"/> &middot; English</a></li>
+                                <li><a href="#" onclick="changeLanguage('fr');return false;"> <img src="{{ asset('bundles/touch3dadmin/img/lang_fr.png') }}" width="20px"/> &middot; French</a></li>
+                            <li><a href="#" onclick="AjouterFavoris();return false;"> Ajouter à vos favoris</a></li>
+                            </ul>
+                            <li><a href="#" onclick="changePaginationShow();return false;"> <i   class="icon-align-right"></i> {% trans %}Pagination{% endtrans %}</a></li>
+                        </ul>
+                    </li>
+                    <li id="li_library" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="icon-book"></i>
+                            {% trans %}Library{% endtrans %} <b class="caret"></b> </a>
+                        <ul class="dropdown-menu">
+
+                            <li><a href="{{ path('adminFactures') }}"> <i	class="icon-barcode"></i> {% trans %}Facture{% endtrans %}</a></li>
+                            <li><a href="{{ path('product') }}"> <i	class="icon-list"></i> {% trans %}Product{% endtrans %}</a></li>
+                            <li><a href="{{ path('partner') }}"> <i	class="icon-list"></i> {% trans %}Partner{% endtrans %}</a></li>
+                            <li><a href="{{ path('article') }}"> <i	class="icon-list"></i> {% trans %}Article{% endtrans %}</a></li>
+                            <li><a href="{{ path('registered') }}"> <i	class="icon-list"></i> {% trans %}Registered{% endtrans %}</a></li>
+                        </ul>
+                    </li>
+                    <li id="li_gallery"><a href="{{ path('gallery') }}"><i	class="icon-folder-open"></i> {% trans %}Gallery{% endtrans %}</a></li>
+                    {% endblock navmenu %}
+                </ul>
+
+                <ul class="nav pull-right">
+                    <li class="divider-vertical"></li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle"
+                                            data-toggle="dropdown"
+                                            > {{ app.user.username }} &nbsp; <img class="icon-user"> </a>
+
+
+                        <ul class="dropdown-menu">
+                            <li><a target="blank" href="#" onclick="afficherProfile(); return false;"><i
+                                            class="icon-eye-open"></i> {% trans %}Preview Profile{% endtrans %}</a></li>
+                            <li><a href="{{ path('fos_user_profile_edit') }}"><i
+                                            class="icon-user"></i> {% trans %}Account Settings{% endtrans %}</a></li>
+                            {% block AdminUserNav %}
+                            {% endblock AdminUserNav %}
+                            <li><a target="blank" href="{{ path('fos_user_change_password') }}"><i
+                                            class="icon-lock"></i> {% trans %}Change Password{% endtrans %}</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}"><i
+                                            class="icon-off"></i> {% trans %}Logout{% endtrans %}</a></li>
+                        </ul>
+                    </li>
+                    <!-- <li class="divider-vertical"></li> -->
+                </ul>
+            </div>
+            <!-- /.nav-collapse --></div>
+    </div>
+    <!-- /navbar-inner --></div>
+<!-- /navbar -->
+
+
+
+
+{% block Admin %}
+{% endblock Admin %}
+
+{% block Dashboard %}
+{% endblock Dashboard %}
+
+
+
+
+<!-- Footer ================================================== -->
+<div class="my-footer">
+
+    <div class="max-width"><span class="my-rights">Copyright &copy; 2014 Touch3d
+</span> <span class="social-links">
+
+<a	href="#" >{% trans %}Back to top{% endtrans %}</a> </span></div>
+</div>
+<script>
+function AjouterFavoris () {
+add_bookmark("{{ path('dashboard') }}", "CSDI.com");
+alert("Nouveau Favoris");
+}
+</script>
+<input type="hidden" id="loadinfo" value="{{ asset('bundles/touch3dadmin/img/loadinfo.gif') }}"/>
+<input type="hidden" id="dashboard" value="{{ path('dashboard') }}"/>
+<input type="hidden" id="_language" value="{{ path('_language') }}"/>
+<input type="hidden" id="_pagination" value="{{ path('_pagination') }}"/>
+
+<script type="text/javascript" src="{{ asset('bundles/touch3dadmin/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/touch3dadmin/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/touch3dadmin/js/jquery-plugins.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/touch3dadmin/js/Chart.min.js') }}"></script>
+
+{% javascripts filter='yui_js'
+'@Touch3dAdminBundle/Resources/public/js/main.js'
+output='js/compiled/mainAdmin.js'
+%}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+<script type="text/javascript">
+    var UrlRoot = '{{ asset("") }}';
+    var fos_username="{{ user.username }}";
+    var ffos_username="{{ 'profile.show.username'|trans }}";
+    var fos_email="{{ user.email }}";
+    var ffos_email="{{ 'profile.show.email'|trans }}";
+    var ffos_password="{{ 'form.password'|trans }}";
+</script>
+
+{% block Javascript %}
+{% endblock Javascript %}
+{% block JavascriptExtends %}
+{% endblock JavascriptExtends %}
+
+
+</body>
+</html>
+
+
+{% else %}
+    {# L'utilisateur n'est pas connecté ! #}
+    <script>window.location.href = {{ path('fos_user_security_login') }}</script>
+{% endif %}

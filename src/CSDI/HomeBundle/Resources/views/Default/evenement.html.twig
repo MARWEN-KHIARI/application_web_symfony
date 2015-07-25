@@ -1,0 +1,200 @@
+{% extends "CSDIHomeBundle::base.html.twig" %}
+{% block title %} - Evénement{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/csdihome/css/pgwmodal.min.css') }}" type="text/css" />
+    <style>
+        .pm-content{
+            background: #f6f6f6;
+        }
+        .modalBlog {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .modalBlog img {
+            width: 50%
+        }
+
+        .modalBlog h5 {
+            width: 50%;
+            display: inline;
+            margin: 0;
+            padding: 3px 0;
+            font-size: 35px;
+            color: #5e5e5e;
+            text-shadow: 0 1px 1px #181818
+        }
+
+        .modalBlog span {
+            color: #888;
+            display: block;
+            font-size: 11px;
+            margin-bottom: 10px;
+            text-shadow: 0 1px 1px #888;
+            text-transform: uppercase;
+            padding-left: 10px
+        }
+    </style>
+{% endblock %}
+
+                {% block bodyOnly %}
+                    {% for Evenement in Evenements %}
+                    <div id="modalContent_{{ Evenement.id }}" style="display: none;">
+                        <article class="modalBlog">
+                            <h5>{{ Evenement.nom }}</h5>
+                            <span>POSTED ON {{ Evenement.date|date('d-m-Y') }} IN {{ Evenement.lieu|raw }}</span>
+                            <img src="{{ Evenement.img }}"/>
+                            </br>
+                            <p>
+                                {{ Evenement.contenu|raw }}
+                            </p>
+                        </article>
+                        <br>
+                    </div>
+                        {% endfor %}
+                {% endblock bodyOnly %}
+
+{% block content %}
+    <div id="content">
+
+        <article id="article_31">
+            <style>
+                .blog img{
+                    width: 150px;
+                }
+            </style>
+
+
+
+
+
+            Blog: <br/>
+            Trouver ici les meilleurs évènements marquants
+            <br/><hr/>
+
+
+
+            {% for Evenement in Evenements %}
+            <article class="blog" onclick="pgm({{ Evenement.id }},'{{ Evenement.nom|raw }}');">
+                <h5>{{ Evenement.nom|raw }}</h5>
+                <span>POSTED ON {{ Evenement.date|date('d-m-Y') }} IN {{ Evenement.lieu|raw }}</span>
+                <img src="{{ Evenement.img }}"/>
+                </br>
+                <p>
+                    {{ Evenement.resumer|raw }}
+                </p>
+            </article>
+
+            {% endfor %}
+
+
+        </article>
+
+
+        <article id="article_32">
+
+            <h2>Archive</h2>
+            <h4>Date:</h4>
+            <ul>
+                {% for Evenement in Evenements %}
+                    <li><a href="javascript:pgm({{ Evenement.id }},'{{ Evenement.nom|raw }}');" onclick="pgm({{ Evenement.id }},'{{ Evenement.nom|raw }}');"> {{ Evenement.date|date('Y-m-d') }}</a></li>
+                {% endfor %}
+            </ul>
+            <hr/>
+        </article>
+<!--
+        <div id="pagination" class="pagination pagination-centered">
+            <ul>
+                <li><a href="#" class="disabled"> < </a></li>
+                <li><a href="#"> 1 </a></li>
+                <li><a href="#" class="disabled"> > </a></li>
+                </ul>
+        </div>
+        -->
+    </div>
+
+    <style>
+        .pagination ul>li>a:hover, .pagination ul>.active>a, .pagination ul>.active>span {
+            background-color: #f5f5f5;
+        }
+        .pagination ul>li>a, .pagination ul>li>span {
+            float: left;
+            padding: 4px 12px;
+            line-height: 20px;
+            text-decoration: none;
+            background-color: #fff;
+            font-weight: 700;
+            border: 1px solid #ddd;
+            border-left-width: 0;
+        }
+
+        .disabled {
+            color: #999;
+        }
+        .disabled:hover, .disabled:active {
+            color: #999;
+        }
+        a:hover {
+            color: #ad8914;
+            text-decoration: underline;
+        }
+        a:hover, a:active {
+            outline: 0;
+        }
+        a {
+            color: #555;
+            text-decoration: none;
+        }
+        li {
+            line-height: 20px;
+        }
+        .pagination ul {
+            display: inline-block;
+            margin-bottom: 0;
+            margin-left: 0;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        ul, ol {
+            padding: 0;
+            margin: 0 0 10px 25px;
+        }
+        div#pagination.pagination.pagination-centered{
+            text-align: center;
+            margin-right: 20%
+        }
+        .pagination ul>li {
+            display: inline;
+        }
+        .pagination li {
+            cursor: pointer;
+        }
+
+        li {
+            line-height: 20px;
+        }
+
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/csdihome/js/pgwmodal.min.js') }}"></script>
+    <script>changePage("Evenement");</script>
+
+    <script>
+        function pgm(id,titre){
+            $.pgwModal({
+                target: '#modalContent_'+id,
+                title: titre,
+                loading: '<span style="text-align:center">Loading in progress</span>',
+                maxWidth: 800
+            });
+        }
+    </script>
+{% endblock %}

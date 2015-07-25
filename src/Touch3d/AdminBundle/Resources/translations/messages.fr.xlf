@@ -1,0 +1,285 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="1">
+                            <source>Product</source>
+                            <target>Produit</target>
+            </trans-unit>
+
+            <trans-unit id="2">
+                              <source>Partner</source>
+                              <target>Partenaire</target>
+            </trans-unit>
+
+            <trans-unit id="3">
+                              <source>Article</source>
+                              <target>Article</target>
+            </trans-unit>
+
+            <trans-unit id="4">
+                              <source>You Can Customize Your Site Here !</source>
+                              <target>Vous pouvez personnaliser votre site ici!</target>
+            </trans-unit>
+
+            <trans-unit id="5">
+                               <source>publish</source>
+                               <target>publier</target>
+            </trans-unit>
+
+            <trans-unit id="6">
+                            <source>revision</source>
+                            <target>révision</target>
+            </trans-unit>
+
+            <trans-unit id="7">
+                             <source>draft</source>
+                             <target>brouillon</target>
+            </trans-unit>
+
+            <trans-unit id="8">
+                              <source>Dashboard</source>
+                              <target>Tableau de bord</target>
+            </trans-unit>
+
+            <trans-unit id="9">
+                            <source>Email</source>
+                            <target>Email</target>
+            </trans-unit>
+
+            <trans-unit id="10">
+                            <source>Pagination</source>
+                            <target>Pagination</target>
+            </trans-unit>
+
+            <trans-unit id="11">
+                             <source>Invention</source>
+                             <target>Invention</target>
+            </trans-unit>
+
+            <trans-unit id="12">
+                              <source>Innovation</source>
+                              <target>Innovation</target>
+            </trans-unit>
+
+            <trans-unit id="13">
+                              <source>Gallery</source>
+                              <target>Galerie</target>
+            </trans-unit>
+
+            <trans-unit id="14">
+                            <source>Preview Profile</source>
+                            <target>Aperçu du profil</target>
+            </trans-unit>
+
+            <trans-unit id="15">
+                            <source>Account Settings</source>
+                            <target>Paramètres du compte</target>
+            </trans-unit>
+
+            <trans-unit id="16">
+                             <source>Change Password</source>
+                             <target>changer mot de passe</target>
+            </trans-unit>
+
+            <trans-unit id="17">
+                              <source>Logout</source>
+                              <target>Déconnexion</target>
+            </trans-unit>
+
+            <trans-unit id="18">
+                            <source>List of all %lb%</source>
+                            <target>Liste de tous les %lb%s</target>
+            </trans-unit>
+
+            <trans-unit id="19">
+                            <source>There you can view,search,create,update/edit and delete %lb%.</source>
+                            <target>Là, vous pouvez visualiser, créer, mettre à jour/modifier et supprimer des %lb%s.</target>
+            </trans-unit>
+
+            <trans-unit id="20">
+                             <source>Refresh</source>
+                             <target>Actualiser</target>
+            </trans-unit>
+
+            <trans-unit id="21">
+                              <source>Add New</source>
+                              <target>Ajouter un nouveau</target>
+            </trans-unit>
+
+            <trans-unit id="22">
+                             <source>Search</source>
+                             <target>Recherche</target>
+            </trans-unit>
+
+            <trans-unit id="23">
+                              <source>Statistics of all %lb%</source>
+                              <target>Statistiques de tous les %lb%s</target>
+            </trans-unit>
+
+            <trans-unit id="24">
+                             <source>Configuration</source>
+                             <target>Configuration</target>
+            </trans-unit>
+
+            <trans-unit id="25">
+                              <source>Library</source>
+                              <target>Bibliothèque</target>
+            </trans-unit>
+
+            <trans-unit id="26">
+                             <source>delete selected pictures</source>
+                             <target>supprimer les photos sélectionnées</target>
+            </trans-unit>
+
+            <trans-unit id="28">
+                              <source>add</source>
+                              <target>ajouter</target>
+            </trans-unit>
+
+            <trans-unit id="29">
+                             <source>upload</source>
+                             <target>transférer</target>
+            </trans-unit>
+
+            <trans-unit id="30">
+                              <source>cancel</source>
+                              <target>annuler</target>
+            </trans-unit>
+
+            <trans-unit id="31">
+                              <source>Back to top</source>
+                              <target>Retour en haut de page</target>
+            </trans-unit>
+
+            <trans-unit id="32">
+                              <source>All Pictures</source>
+                              <target>Toutes les photos</target>
+            </trans-unit>
+
+            <trans-unit id="33">
+                              <source>Here you can view, add and delete pictures.</source>
+                              <target>Ici vous pouvez afficher, ajouter et supprimer  des images.</target>
+            </trans-unit>
+
+            <trans-unit id="34">
+                              <source>Edit %lb%</source>
+                              <target>Modifier le %lb%</target>
+            </trans-unit>
+
+            <trans-unit id="35">
+                              <source>You can edit your %lb%.</source>
+                              <target>Vous pouvez modifier votre %lb%.</target>
+            </trans-unit>
+
+            <trans-unit id="36">
+                              <source>You cannot update your %lb%.</source>
+                              <target>Vous ne pouvez pas mettre à jour votre %lb%.</target>
+            </trans-unit>
+
+            <trans-unit id="37">
+                              <source>Create %lb%</source>
+                              <target>Créez %lb%</target>
+            </trans-unit>
+
+            <trans-unit id="38">
+                              <source>You can add a new %lb%.</source>
+                              <target>Vous pouvez ajouter un nouveau %lb%.</target>
+            </trans-unit>
+
+            <trans-unit id="39">
+                              <source>The %lb% of this id :</source>
+                              <target>Le %lb% de cet id :</target>
+            </trans-unit>
+
+            <trans-unit id="40">
+                              <source>No %lb% found for this id : </source>
+                              <target>Aucun %lb% trouvé pour cet id : </target>
+            </trans-unit>
+
+            <trans-unit id="41">
+                              <source>Delete Data</source>
+                              <target>supprimer les données</target>
+            </trans-unit>
+
+            <trans-unit id="42">
+                              <source>Are you sure?</source>
+                              <target>Etes-vous sûr?</target>
+            </trans-unit>
+
+            <trans-unit id="43">
+                              <source>Edit Informations</source>
+                              <target>Modifier les informations</target>
+            </trans-unit>
+
+            <trans-unit id="44">
+                              <source>View Details</source>
+                              <target>Voir les détails</target>
+            </trans-unit>
+
+            <trans-unit id="45">
+                              <source>Number of all %lb%</source>
+                              <target>Nombre de tous les %lb%s</target>
+            </trans-unit>
+
+            <trans-unit id="46">
+                              <source>Number %lb% founded</source>
+                              <target>Nombre %lb%s trouvés</target>
+            </trans-unit>
+
+            <trans-unit id="47">
+                              <source>Pictures are deleted</source>
+                              <target>Les images sont supprimées</target>
+            </trans-unit>
+
+            <trans-unit id="48">
+                              <source>Picture is added</source>
+                              <target>image est ajouté</target>
+            </trans-unit>
+
+            <trans-unit id="49">
+                              <source>Id of the modified %lb% is: </source>
+                              <target>Id du %lb% modifié est : </target>
+            </trans-unit>
+
+            <trans-unit id="50">
+                              <source>Id of the new %lb% is: </source>
+                              <target>Id du %lb% créé est : </target>
+            </trans-unit>
+
+            <trans-unit id="51">
+                              <source>No %lb% found for this request : </source>
+                              <target>Pas de %lb%s pour cette demande: </target>
+            </trans-unit>
+
+            <trans-unit id="52">
+                              <source>View Picture</source>
+                              <target>Voir Image</target>
+            </trans-unit>
+
+            <trans-unit id="53">
+                              <source>is removed!</source>
+                              <target>est supprimé!</target>
+            </trans-unit>
+
+            <trans-unit id="54">
+                              <source>Audience of website</source>
+                              <target>Audience du site web</target>
+            </trans-unit>
+
+            <trans-unit id="55">
+                             <source>Welcome To The Dashboard !</source>
+                             <target>Bienvenue sur le tableau de bord !</target>
+            </trans-unit>
+            <trans-unit id="56">
+                             <source>Preview Profile as User</source>
+                             <target>Aperçu du profil as User</target>
+            </trans-unit>
+
+            <trans-unit id="57">
+                             <source>Facture</source>
+                             <target>Facture</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

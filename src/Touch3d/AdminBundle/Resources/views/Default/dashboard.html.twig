@@ -1,0 +1,122 @@
+{% if is_granted('ROLE_ADMIN') %}
+{% extends "Touch3dAdminBundle::layout.html.twig" %}
+{% block title %}Dashboard{% endblock %}
+    {% block Stylesheet %}
+        <style>
+            .badge {
+                float: right;
+            }
+        </style>
+    {% endblock Stylesheet %}
+
+    {% block AdminUserNav %}
+        <li><a href="{{ path('udashboard') }}" target="_blank"><i
+                        class="icon-user"></i> {% trans %}Preview Profile as User{% endtrans %}</a></li>
+    {% endblock AdminUserNav %}
+
+{% block Dashboard %}
+
+    <div class="container container-100">
+        <ul class="breadcrumb">
+            {% block url_dashboard %}
+                <li class="active">Dashboard <span class="divider">/</span></li>
+            {% endblock url_dashboard %}
+        </ul>
+        <div class="row-fluid">
+            <ul class="thumbnails">
+                <li class="span4">
+
+                    {% block statistics_dashboard %}
+                        <div class="thumbnail cust-thumbnail" style="float: left">
+                            <span id="nbrx_visiteur" style="float: right"></span>
+                            <canvas id="canvas_visiteur" height="350" width="650"></canvas>
+
+                            <br/>
+                            <div class="page-header first-box">
+                                <h1 class="null-space">
+                                    <small>{% trans %}Audience of website{% endtrans %}</small>
+                                </h1><br/><br/><br/>
+                            </div>
+                            <canvas id="canvas_product" height="350" width="350"></canvas>
+                            <br/>
+                            <a href="{{ path('product') }}" class="btn btn-primary" style="float: right;width: 175px;" ><i rel="tooltip" onmouseover="$(this).tooltip('show');" data-original-title="Voir les produits" class="icon-eye-open"></i> Afficher les Produits</a>
+                            <div class="page-header first-box">
+                                <h1 class="null-space">
+                                    <small>{% trans %}Statistics of all Products{% endtrans %}</small>
+                                </h1>
+                            </div>
+                            <span id="info_canvas_product"></span>
+
+                            <hr/>
+                            <div class="page-header first-box">
+                                <h1 class="null-space">
+                                    <small>Statistics of Newsletters</small>
+                                </h1>
+                            </div>
+                            Nombre total des inscriptions aux Newsletters: {{ newsletters|length }}
+                            <br/>
+                            <button type="button" class="btn btn-primary" style="float: right;width: 200px;" onclick="viewNewsletters();"><i rel="tooltip" onmouseover="$(this).tooltip('show');" data-original-title="Voir les Emails" class="icon-eye-open"></i> Afficher les Emails</button>
+
+
+                        </div>
+                    {% endblock statistics_dashboard %}
+
+
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="page-header">
+            {% block title_table_dashboard %}
+                <h3>
+                    <div id="loading"></div>
+                </h3>
+            {% endblock title_table_dashboard %}
+        </div>
+
+        <div>
+
+            {% block search_dashboard %}
+            {% endblock search_dashboard %}
+        </div>
+
+        <br>
+        <br>
+
+
+        {% block table_dashboard %}
+            <h1>{% trans %}Welcome To The Dashboard !{% endtrans %}</h1>
+            <h3>{% trans %}You Can Customize Your Site Here !{% endtrans %}</h3>
+        {% endblock table_dashboard %}
+
+
+        <hr/>
+        <div id="messageInfo"></div>
+
+        {% block pagination %}
+        {% endblock pagination %}
+
+        <div class="clear-both"><br>
+            <br>
+        </div>
+    </div>
+{% endblock Dashboard %}
+
+{% block Javascript %}
+
+
+    <script>
+        $("#messageInfo").load("{{ path('_statisticProduct') }}").hide().fadeIn();
+        $("#messageInfo").load("{{ path('_statisticVisiteur') }}").hide().fadeIn();
+
+        function viewNewsletters(id1) {
+            data="{% for nws in newsletters %}{{ nws.email }}<br/>{% endfor %}";
+            bootbox.alert(data, "Newsletters Details");
+        }
+
+    </script>
+{% endblock Javascript %}
+{% block JavascriptExtends %}
+{% endblock JavascriptExtends %}
+{% endif %}

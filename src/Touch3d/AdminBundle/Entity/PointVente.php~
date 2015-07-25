@@ -1,0 +1,215 @@
+<?php
+
+namespace Touch3d\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * PointVente
+ *
+ * @ORM\Table(name="T3D_pointVente")
+ * @ORM\Entity(repositoryClass="Touch3d\AdminBundle\Entity\PointVenteRepository")
+ */
+class PointVente
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string", length=255)
+     */
+    private $adresse;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gl", type="string", length=255)
+     */
+    private $gl;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gr", type="string", length=255)
+     */
+    private $gr;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tel", type="string", length=255)
+     */
+    private $tel;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fax", type="string", length=255)
+     */
+    private $fax;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status", type="string", length=100)
+     */
+    private $status;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set adresse
+     *
+     * @param string $adresse
+     * @return PointVente
+     */
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
+    
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return string 
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+
+    /**
+     * Set gl
+     *
+     * @param string $gl
+     * @return PointVente
+     */
+    public function setGl($gl)
+    {
+        $this->gl = $gl;
+    
+        return $this;
+    }
+
+    /**
+     * Get gl
+     *
+     * @return string 
+     */
+    public function getGl()
+    {
+        return $this->gl;
+    }
+
+    /**
+     * Set gr
+     *
+     * @param string $gr
+     * @return PointVente
+     */
+    public function setGr($gr)
+    {
+        $this->gr = $gr;
+    
+        return $this;
+    }
+
+    /**
+     * Get gr
+     *
+     * @return string 
+     */
+    public function getGr()
+    {
+        return $this->gr;
+    }
+
+    /**
+     * Set tel
+     *
+     * @param string $tel
+     * @return PointVente
+     */
+    public function setTel($tel)
+    {
+        $this->tel = $tel;
+    
+        return $this;
+    }
+
+    /**
+     * Get tel
+     *
+     * @return string 
+     */
+    public function getTel()
+    {
+        return $this->tel;
+    }
+
+    /**
+     * Set fax
+     *
+     * @param string $fax
+     * @return PointVente
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+    
+        return $this;
+    }
+
+    /**
+     * Get fax
+     *
+     * @return string 
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return PointVente
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+}

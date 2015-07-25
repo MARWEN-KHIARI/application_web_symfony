@@ -1,0 +1,159 @@
+<!DOCTYPE pdf SYSTEM "%resources%/dtd/doctype.dtd">
+<pdf Creator="CSDI" Author="CSDI" Title="Facture" Subject="facture">
+    <dynamic-page font-type="DejaVuSans" encoding="UTF-8">
+
+        <page page-size="a4" font-type="DejaVuSans">
+
+            <div alpha="0.9" float="left">
+                <img src="./bundles/csdihome/images/logo.png" width="120"/><br/>
+            </div>
+
+
+            <div padding-top="50px" margin="10px -10px"  float="right" color="#888888">
+                <span >12 rue de Belvedaire Tunis</span><br/>
+                <span >1111 Tunisie</span><br/>
+                <span ><strong color="#444444" font-type="DejaVuSans" >Tel:</strong> 00216 71 500 000</span><br/>
+                <span ><strong color="#444444" font-type="DejaVuSans" >Fax:</strong> 00216 71 500 000</span><br/>
+                <span ><strong color="#444444" font-type="DejaVuSans" >Email:</strong> contact@csdi.com</span><br/>
+                <span ><strong color="#444444" font-type="DejaVuSans" >Site web:</strong> www.csdi.com</span><br/>
+            </div>
+            <div  margin="60px 250px" float="left">
+            <h1 color="#448888" font-size="26px"  >Facture N°00{{ facture.id_facture }}</h1>
+            </div>
+
+
+
+                <table>
+
+                    <tr >
+                         <td padding="8px" background.color="white" border.color="white"></td>
+                         <td padding="8px" background.color="#cccccc" border.color="white" width="80px"><strong>Code Facture</strong></td>
+                         <td padding="8px" background.color="#cccccc" border.color="white"><strong>Date de facturation</strong></td>
+                         <td padding="8px" background.color="#cccccc" border.color="white" width="80px"><strong>Code Client</strong></td>
+                         <td padding="8px" background.color="#cccccc" border.color="white"><strong>Client</strong></td>
+                        {% if(facture.date_paiement!=null) %}
+                         <td padding="8px" background.color="#cccccc" border.color="white"><strong>Date de paiement</strong></td>
+                        {% endif %}
+                        <td padding="8px" background.color="#cccccc" border.color="white"><strong>Status</strong></td>
+                    </tr>
+                    <tr>
+
+
+
+
+
+
+                         <td padding="8px" border.color="white"></td>
+                         <td padding="8px" border.color="white"> 00{{ facture.id_facture }}</td>
+                         <td padding="8px" border.color="white"> {{ facture.date_creation|date('d-m-Y')}}</td>
+                         <td padding="8px" border.color="white"> 00{{ facture.id_client }}</td>
+                         <td padding="8px" border.color="white"> {{ facture.nom_client }}</td>
+                        {% if(facture.date_paiement!=null) %}
+                         <td padding="8px" border.color="white"> {{ facture.date_paiement|date('d-m-Y') }}</td>
+                        {% endif %}
+                         <td padding="8px" border.color="white"> {{ facture.status_facture }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" border.color="white" height="100px"></td>
+
+                    </tr>
+                </table>
+
+                <table>
+                    <tr background.color="#cccccc">
+                        <td padding="8px" border.color="white" width="80px"><strong>Code</strong></td>
+                        <td padding="8px" border.color="white"><strong>Description</strong></td>
+                        <td padding="8px" border.color="white" width="90px"><strong>Quantité</strong></td>
+                        <td padding="8px" border.color="white"><strong>PU / HT</strong></td>
+                        <td padding="8px" border.color="white"><strong>Montant / HT</strong></td>
+                        <td padding="8px" border.color="white" background.color="white"></td>
+                    </tr>
+
+
+                    <tr>
+                         <td padding="8px 6px" border.color="white">
+                             <ul type="none" margin="0">
+                                 {% for commande in commandes %}
+                                 <li>00{{ commande.id  }}</li>
+                                 {% endfor %}
+                             </ul>
+                         </td>
+                         <td padding="8px 6px" border.color="white">
+                             <ul type="none" margin="0">
+                                 {% for commande in commandes %}
+                                     <li>{{ commande.nom  }}</li>
+                                 {% endfor %}
+                             </ul>
+                         </td>
+                         <td padding="8px 6px" border.color="white">
+                             <ul type="none" margin="0">
+                                 {% for commande in commandes %}
+                                     <li>{{ commande.quantite  }}</li>
+                                 {% endfor %}
+                             </ul>
+                         </td>
+                         <td padding="8px 6px" border.color="white">
+                             <ul type="none" margin="0">
+                                 {% for commande in commandes %}
+                                     <li>{{ commande.prix|number_format(3, '.', ' ') }}</li>
+                                 {% endfor %}
+                             </ul>
+                         </td>
+                         <td padding="8px 6px" border.color="white">
+                             <ul type="none" margin="0">
+                                 {% for commande in commandes %}
+                                     <li>{{ commande.MU|number_format(3, '.', ' ') }}</li>
+                                 {% endfor %}
+                             </ul>
+                         </td>
+                         <td padding="8px 6px" border.color="white"></td>
+                    </tr>
+
+                    <tr >
+                         <td padding="8px" colspan="6"  height="2px" border.color="white"></td>
+                    </tr>
+
+                    <tr >
+                         <td padding="8px" colspan="3" border.color="white"></td>
+                         <td padding="8px" colspan="2" border.color="white"><strong>Sous-TOTAL</strong></td>
+                         <td padding="8px" border.color="white">{{ MT|number_format(3, '.', ' ')  }} Dinar</td>
+
+                    </tr>
+                    <tr>
+                         <td padding="8px" colspan="3" border.color="white"></td>
+                         <td padding="8px" colspan="2" border.color="white"><strong>TVA</strong></td>
+                         <td padding="8px" border.color="white">18%</td>
+                    </tr>
+                    <tr>
+                         <td padding="8px" colspan="3" border.color="white"></td>
+                         <td padding="8px" colspan="2" border.color="white"><strong>Port &amp; Manutention</strong></td>
+                         <td padding="8px" border.color="white">25 Dinar</td>
+                    </tr>
+                    <tr>
+                         <td padding="8px" colspan="3" border.color="white"></td>
+                         <td padding="8px" colspan="2" border.color="white"><strong>TOTAL</strong></td>
+                        <td padding="8px" border.color="white">{{ MTPaye|number_format(3, '.', ' ')  }} Dinar</td>
+                    </tr>
+
+                    <tr>
+                         <td padding="8px" colspan="6" height="60px" border.color="white"></td>
+                    </tr>
+                </table>
+
+                <div padding="8px" height="200px" float="right"><strong style="margin-left:50px;">Signature du client:</strong></div>
+
+
+            <placeholders>
+                <footer>
+                    <div height="20px" alpha="0.8">
+                        <em>Les conditions de vente sont déterminées dans le
+                            contrat général de vente de l'entreprise. </em>
+                    </div>
+                </footer>
+
+            </placeholders>
+
+        </page>
+
+    </dynamic-page>
+</pdf>

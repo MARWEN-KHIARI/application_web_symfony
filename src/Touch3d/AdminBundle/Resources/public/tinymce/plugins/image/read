@@ -1,0 +1,48 @@
+ var b = [{
+                type: 'container',
+                layout: 'flex',
+                classes: 'combobox has-open',
+                label: 'Source',
+                direction: 'row',
+                items: [
+                    {
+                        name: 'src',
+                        type: 'filepicker',
+                        filetype: 'image',
+                        size: 40,
+                        classes: 'img_' + e.id,
+                        onchange: c,
+                        autofocus: !0
+                    },
+                    {
+                        name: 'upl_img',
+                        type: 'button',
+                        classes: 'btn open',
+                        style:"width: 40px; margin-right: 4px;",
+                        icon: 'browse',
+                        onclick: openmanager,
+                        tooltip: 'Upload image'
+                    }
+                ]
+
+
+            },
+            m
+        ];
+        function openmanager() {
+            var win, data, dom = e.dom,
+                imgElm = e.selection.getNode();
+            var width, height, imageListCtrl;
+            win= selectImages();
+
+            /*win = e.windowManager.open({
+                title: 'Image Manager',
+                data: data,
+                classes: 'filemanager',
+                file: _selectImages,
+                filetype: 'html',
+                width: 900,
+                height: 600,
+                inline: 1
+            })*/
+        }

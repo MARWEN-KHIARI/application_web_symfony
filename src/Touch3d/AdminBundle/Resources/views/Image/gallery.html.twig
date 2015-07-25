@@ -1,0 +1,150 @@
+{% extends 'Touch3dAdminBundle::Default/dashboard.html.twig' %}
+    {% block Stylesheet %}
+        <link href="{{ asset('bundles/touch3dadmin/css/dashboard.css') }}" rel="stylesheet">
+        <link href="{{ asset('bundles/touch3dadmin/css/gallery.css') }}" rel="stylesheet">
+<style>
+
+    .blockImg{
+        width: 100px;
+        height: auto;
+    }
+
+    Inherited from .blockImg
+    .blockImg {
+        width: 100px;
+        height: 100px;
+        opacity: 0.7;
+        zoom: 0.8;
+    }
+    .blockImg img{
+        width: 100px;
+        height: auto;
+        opacity: 0.7;
+        zoom: 0.8;
+    }
+    .aImg{
+        bottom: 0;
+    }
+    figcaption{
+        padding-top: 20px;
+        font-size: 10px;
+        font-style: normal;
+        vertical-position: ordinal;
+        align-content: center;
+        text-align: center;
+    }
+</style>
+    {% endblock Stylesheet %}
+
+{% block title %}Dashboard&middot;Gallery{% endblock %}
+
+
+  {% block statistics_dashboard %}
+  {% endblock statistics_dashboard %}
+
+{% block url_dashboard %}
+    <li><a href="{{ path("dashboard") }}">Dashboard</a> <span class="divider">/</span></li>
+    <li class="active">Gallery</li>
+{% endblock url_dashboard %}
+{% block title_table_dashboard %}
+    <h3>
+        <div id="loading"></div>
+        {% trans %}All Pictures{% endtrans %}
+        <small><p>{% trans %}Here you can view, add and delete pictures.{% endtrans %}</p></small>
+    </h3>
+{% endblock title_table_dashboard %}
+{% block table_dashboard %}
+    {% if image.id is not null %}
+        <span class="blockImg img-polaroid" width="150px" style="float: left; margin-right: 20px;">
+        <center><img src="{{ asset(image.webPath) }}" alt="{{ image.alt }}" width="100px" height="100px"/></center>
+        <br/>
+            <center>Last <i class="icon-chevron-up"></i> Uploaded</center>
+        </span>
+    {% endif %}
+    <form id="form_pic" class="edit-form" action="{{ path('gallery') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+
+        <span>
+        <label for="touch3d_adminbundle_imagetype_file" class="btn"> <i class="icon-plus-sign"></i> {% trans %}add{% endtrans %}</label>
+</span>
+
+<span>
+    <button name="upload" id="upload" type="submit" class="btn">
+        <i class="icon-upload"></i> {% trans %}upload{% endtrans %}
+    </button>
+</span>
+        {% if image.id is null %}
+            <span>
+    <button name="cancel" id="cancel" type="reset" class="btn" onclick="resetTag();">
+        <i class="icon-remove-sign"></i> {% trans %}cancel{% endtrans %}
+    </button>
+</span>
+        {% endif %}
+    </form>
+
+
+
+
+    <hr/>
+    <!--<center>-->
+        <div id="catalogueImg">
+        </div>
+<!--</center>-->
+    <span class="blockBut">
+<button onclick="deleteImages();" name="delete" id="delete" class="btn"><i
+            class="icon-trash"></i>{% trans %}delete selected pictures{% endtrans %}
+</button>
+</span>
+
+{% endblock table_dashboard %}
+
+{% block Javascript %}
+    <script type="text/javascript" src="{{ asset('bundles/touch3dadmin/js/platform.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/touch3dadmin/js/gallery.js') }}"></script>
+
+
+    <script type="text/javascript">
+        _activeGallery();
+
+        var _deleteImages="{{ path('_deleteImages') }}";
+        var imgsId = new Array();
+        {% for img in images %}
+        imgsId.push({{ img.id }});
+        {% endfor %}
+
+        var catalogueImg = "";
+        {% for img in images %}
+        catalogueImg +=
+                '<span class="blockImg img-polaroid" width="150px" id="blockImg_{{ img.id }}">' +
+
+                '<label for="image_{{ img.id }}" style="cursor: pointer;">' +
+                '<figure>' +
+                '<img src="{{ asset(img.getWebPath) }}" alt="{{ img.alt }}" />' +
+                        '<input type="checkbox" id="image_{{ img.id }}" onchange="changeColor(\'#blockImg_{{ img.id }}\',this.checked);" style="opacity: 0;margin: 0;padding: 0;width: 0;height: 0;"/>' +
+                        '<br/><a href="#" class="aImg" onclick="viewImage(\'{{ asset(img.getWebPath) }}\');">'+
+                        '<i rel="tooltip" onmouseover="$(this).tooltip(&#39;show&#39;);" data-original-title="{% trans %}View Picture{% endtrans %}" >'+
+                        '<figcaption>{{ img.legend }}</figcaption>'+
+                        '</i>'+
+                        '</a> ' +
+
+                '</figure>' +
+                '</label>' +
+                '</span>';
+        {% endfor %}
+
+        var dividerCatalogueResolution_ = {
+            SMALL: {value: 2},
+            MEDIUM: {value: 4},
+            LARGE: {value: 6}
+        };
+
+
+        //var UrlRootUpload = '{{ asset(images[0].uploadDir) }}';
+        function viewImage(href) {
+            var data="<img src='"+href+"'/>";
+            bootbox.alert(data);
+        }
+    </script>
+
+
+{% endblock Javascript %}

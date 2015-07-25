@@ -1,0 +1,145 @@
+{% extends "CSDIHomeBundle::base.html.twig" %}
+{% block title %} - Accueil{% endblock %}
+
+{% block headerDown %}
+    <div id="slideshow" onClick="slideSwitch(1000);">
+        <img src="{{ asset('bundles/csdihome/images/gallery/1.jpg') }}" alt="" title="" class="active"/>
+        <img src="{{ asset('bundles/csdihome/images/gallery/2.jpg') }}" alt="" title=""/>
+        <img src="{{ asset('bundles/csdihome/images/gallery/3.jpg') }}" alt="" title=""/>
+        <img src="{{ asset('bundles/csdihome/images/gallery/4.jpg') }}" alt="" title=""/>
+
+        <div id="sld">
+            <div class="sldx" style="display: none">
+                Magazin space pour enfants
+            </div>
+            <div class="sldx" style="display: none">
+                Produit Genuis pour enfants et adultes
+            </div>
+            <div class="sldx" style="display: none">
+                publicité des produits dans nos évènements
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="service">
+        <p>Nos réference:
+            Nos produits sont distribués dans le marché grâce à nos solides partenaires. Découvrez nos meilleurs partenaires.
+            </p>
+
+        <div class="logoClient">
+            {% for Partenaire in Partenaires %}
+<a href="{{ Partenaire.lien }}" target="_blank"><img src="{{ asset(Partenaire.logo) }}" alt="{{ Partenaire.nom }}" /></a>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+{% block content %}
+    <div id="content">
+        <div class="clear"></div>
+
+
+        <article id="article_1">
+
+            <h2>Actualité</h2>
+
+            <h3>Evenement :</h3>
+
+            <br/>
+
+            {% for Evenement in Evenements %}
+            <div class="article-slide2">
+            <h4>Date:</h4> {{ Evenement.date|date('d-m-Y') }}<br/>
+            <h4>Lieu:</h4> <font style="white-space: nowrap;">{{ Evenement.lieu|capitalize }}</font><br/>
+            <h4>Sujet:</h4>
+            <p>{{ Evenement.resumer }}</p>
+            <a href="{{ path('EVENEMENT') }}" class="readmore">lire la suite</a>
+            </div>
+            {% endfor %}
+
+            <hr/>
+            {% for Produit in Produits %}
+                <div class="article-slide">
+                    <h3>{{ Produit.nom|capitalize }}</h3><br/>
+                    {% if Produit.img != '' %}
+                    <a href="#" class="readmore">
+                        <img src="{{ Produit.img }}" width="100px"
+                             class="imgCadre"/>
+                    </a>
+                    {% endif %}
+                    <br/><br/>
+                    <h4>Presentation:</h4>
+
+                    <p>{{ Produit.resumer|raw }}</p>
+                    <br/>
+                </div>
+            {% endfor %}
+
+        </article>
+
+
+        <article id="article_2" >
+<style>
+
+    .p_prd img{
+        width: 30px;
+        padding-left: 10px;
+        margin: -15px 10px -15px 0;
+    }
+</style>
+
+            <h2>Qui sommes-nous ?</h2>
+            <center><img src="{{ asset('bundles/csdihome/images/entreprise.jpg') }}" class="imgCadre" width="80%"/></center>
+
+<p>
+                Fondée en 2003, CSDI est devenue, au fil des années, l'un des acteurs principaux du marché européen du jeu de cartes à jouer et à collectionner, des jeux et jouets et des produits dérivés manga, cinéma, TV et comics.
+                </p>
+            <p>
+                Du magasin indépendant spécialisé à la grande surface alimentaire en passant par les grandes enseignes culturelles, la logistique d'CSDI Corp a su s'adapter à chacune des exigences de ces différents canaux de distribution. En constante progression depuis sa création, elle a généré sur l'exercice 2011-2012 un chiffre d'affaires de 20,9 millions d'euros (dont 30% à l'export), avec plus de 5 millions d'articles vendus.
+
+            </p>
+        </article>
+
+        <article id="article_3" >
+            <h2>Espace Public</h2>
+            <span>
+                Pour le grand public, CSDI crée plusieurs produits destiné pour les enfants et les adultes
+            Notre catalogue des produits contient:
+            <ul>
+                <li>Jeux de carte</li>
+                <li>Magazine pour enfants</li>
+                <li>CD-ROM interactifs</li>
+            </ul>
+            </span>
+            <hr/>
+            <h2>Espace Entreprise</h2>
+            <p>
+                CSDI est aujourd'hui spécialisé sur 3 marchés dont les frontières sont souvent minces : les JCC (jeux de cartes à jouer et à collectionner), les jeux et jouets, ainsi que les produits collector et dérivés (gifts, textile, déco, figurines).</p>
+            CSDI propose pour sa clientèle professionnelle :
+
+            <br/><br/>
+            <span>
+                <p class="p_prd"><img src="{{ asset('bundles/csdihome/images/lipsum07.gif') }}"/>Commercialisation des produits</p>
+                <p class="p_prd"><img src="{{ asset('bundles/csdihome/images/lipsum07.gif') }}"/>Marketing des produits</p>
+            </span>
+        </article>
+
+
+
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+<script>changePage("Accueil");</script>
+{% endblock %}
